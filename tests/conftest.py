@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright
 
 
 CONFIG_PATH = "config.ini"
-TRACES_DIR_PATH = ".traces"
+TRACES_DIR_PATH = ".test-results"
 
 
 @pytest.fixture(scope="session")
