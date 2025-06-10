@@ -20,10 +20,12 @@ jobs:
         pip install -r requirements.txt
     - name: Ensure browsers are installed
       run: python -m playwright install --with-deps
-    - name: Run your tests
+    - name: Run tests
       run: pytest -m smoke tests/
-    - name: Check for traces
-      run: ls -l .test-results || echo "No trace files"
+    - name: Check working dir
+      run: |
+        echo "PWD = $PWD"
+        ls -l .test-results
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
