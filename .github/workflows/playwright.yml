@@ -22,12 +22,8 @@ jobs:
       run: python -m playwright install --with-deps
     - name: Run tests
       run: pytest -m smoke tests/
-    - name: Check working dir
-      run: |
-        echo "PWD = $PWD"
-        ls -l .test-results
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-traces
-        path: .test-results/*.zip
+        path: .test-results
