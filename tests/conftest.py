@@ -1,4 +1,6 @@
 import json
+import os
+import uuid
 
 import pytest
 import src.utils as utils
@@ -6,12 +8,17 @@ from playwright.sync_api import sync_playwright
 
 
 CONFIG_PATH = "config.ini"
+TRACES_DIR_PATH = ".traces"
 
 
 @pytest.fixture(scope="session")
 def config():
     return utils.load_config(path=CONFIG_PATH)
 
+
+@pytest.fixture(scope="session", autouse=True)
+def mkdirs():
+    os.makedirs(f"{os.getcwd()}/{TRACES_DIR_PATH}", exist_ok=True)
 
 @pytest.fixture(scope="function")
 def pw():
@@ -50,6 +57,20 @@ def browser_context(config, browser):
     yield ctx
 
     ctx.close()
+
+
+@pytest.fixture(scope="function", autouse=True)
+def trace_browser_context(config, browser_context):
+    ui_config = config["ui"]
+    save_trace = ui_config.getboolean("save_trace")
+
+    if save_trace:
+        browser_context.tracing.start(screenshots=True, snapshots=True, sources=True)
+
+    yield
+
+    if save_trace:
+        browser_context.tracing.stop(path=f"{os.getcwd()}/{TRACES_DIR_PATH}/trace-{uuid.uuid4()}.zip")
 
 
 @pytest.fixture(scope="function")
