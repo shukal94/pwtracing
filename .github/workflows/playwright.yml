@@ -28,7 +28,7 @@ jobs:
       - name: Ensure browsers are installed
         run: python -m playwright install --with-deps
 
-      - name: Run tests (pytest.ini already has allure opts)
+      - name: Run tests
         run: pytest -m smoke tests/
 
       - name: Generate Allure Report
@@ -36,7 +36,7 @@ jobs:
 
       - name: Generate Playwright Trace Viewer
         run: |
-          npm install -g @playwright/test
+          npm install @playwright/test --no-save
           export TRACE_DIR_NAME="run-$(date +'%Y-%m-%d')"
           mkdir -p public/traces/$TRACE_DIR_NAME
 
