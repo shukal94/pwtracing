@@ -38,7 +38,7 @@ jobs:
         run: |
           npm install --no-save playwright-core
 
-          export TRACE_DIR_NAME="run-$(date +'%Y-%m-%d')"
+          export TRACE_DIR_NAME="latest"
           mkdir -p public/traces/$TRACE_DIR_NAME
           
           VIEWER_PATH=$(find node_modules -type d -name traceViewer | head -n 1)
