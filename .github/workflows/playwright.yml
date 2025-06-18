@@ -59,7 +59,7 @@ jobs:
             echo "Processing $BASENAME"
             TRACE_NAME="${BASENAME%.zip}"
             TRACE_HTML="public/traces/$TRACE_DIR_NAME/${TRACE_NAME}.html"
-            TRACE_IFRAME_PATH="traceViewer/index.html?trace=../${BASENAME}"
+            TRACE_IFRAME_PATH="traceViewer/index.html?trace=${BASENAME}"
 
             # Generate the HTML page for the trace
             cat <<EOF > "$TRACE_HTML"
