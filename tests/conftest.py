@@ -71,14 +71,16 @@ def trace_browser_context(request, config, browser_context):
     yield
 
     if save_trace:
-        trace_path = TRACES_DIR_PATH.joinpath(f"trace_{request.node.name}_{uuid.uuid4().hex}.zip")
+        test_name = request.node.name
+        trace_path = TRACES_DIR_PATH.joinpath(f"trace_{test_name}_{uuid.uuid4().hex}.zip")
         browser_context.tracing.stop(path=trace_path)
-        with allure.step("Attach Playwright trace"):
-            allure.attach.file(
-                trace_path,
-                name=f"Trace",
-                attachment_type="application/zip"
-            )
+        utils.attach_trace(trace_path, test_name)
+        # with allure.step("Attach Playwright trace"):
+        #     allure.attach.file(
+        #         trace_path,
+        #         name=f"Trace",
+        #         attachment_type="application/zip"
+        #     )
 
 
 @pytest.fixture(scope="function")
