@@ -1,6 +1,10 @@
+[![Allure Report](https://img.shields.io/badge/Allure_Report-Live-green?logo=githubpages)](https://shukal94.github.io/pwtracing/)
+
 ## Requirements
 [Python 3.12+](https://www.python.org/downloads/)
+
 [Java 8+ (version 21 recommended)](https://www.oracle.com/java/technologies/downloads/#jdk21-mac)
+
 [Allure](https://allurereport.org/docs/install/)
 
 ## Install
