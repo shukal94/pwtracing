@@ -40,41 +40,38 @@ jobs:
 
           export TRACE_DIR_NAME="latest"
           mkdir -p public/traces/$TRACE_DIR_NAME
-          
-          # Copy Trace Viewer UI
+
           VIEWER_PATH=$(find node_modules -type d -name traceViewer | head -n 1)
           cp -r "$VIEWER_PATH" public/traces/$TRACE_DIR_NAME/traceViewer
-
-          # Copy trace .zip files before generating HTML
           cp artifacts/traces/*.zip public/traces/$TRACE_DIR_NAME/ || echo "No trace zip files found"
 
-          # Generate index.html with links to each trace
+          # Generate HTML per trace
           shopt -s nullglob
           INDEX_HTML="public/traces/$TRACE_DIR_NAME/index.html"
           echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Traces</title></head><body><h1>Playwright Traces</h1><ul>" > "$INDEX_HTML"
 
-          for TRACE_FILE in public/traces/$TRACE_DIR_NAME/trace-*.zip; do
+          for TRACE_FILE in artifacts/traces/trace-*.zip; do
             BASENAME=$(basename "$TRACE_FILE")
             TRACE_NAME="${BASENAME%.zip}"
             TRACE_HTML="public/traces/$TRACE_DIR_NAME/${TRACE_NAME}.html"
-            TRACE_IFRAME_PATH="traceViewer/index.html?trace=${BASENAME}"
+            TRACE_IFRAME_PATH="../traceViewer/index.html?trace=../${BASENAME}"
 
-            # Generate iframe wrapper
             cat <<EOF > "$TRACE_HTML"
-            <!DOCTYPE html>
-            <html>
-              <head><meta charset="UTF-8"><title>${TRACE_NAME}</title></head>
-              <body style="margin:0">
-                <iframe src="${TRACE_IFRAME_PATH}" width="100%" height="100%" style="border:none"></iframe>
-              </body>
-            </html>
-            EOF
-
+          <!DOCTYPE html>
+          <html>
+            <head><meta charset="UTF-8"><title>${TRACE_NAME}</title></head>
+            <body style="margin:0">
+              <iframe src="${TRACE_IFRAME_PATH}" width="100%" height="100%" style="border:none"></iframe>
+            </body>
+          </html>
+          EOF
+          
             echo "<li><a href=\"${TRACE_NAME}.html\">${TRACE_NAME}</a></li>" >> "$INDEX_HTML"
           done
-
+          
           echo "</ul></body></html>" >> "$INDEX_HTML"
           shopt -u nullglob
+      
 
       - name: Deploy Allure Report and Traces to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
