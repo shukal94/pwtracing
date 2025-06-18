@@ -32,10 +32,19 @@ jobs:
         run: pytest -m smoke tests/
 
       - name: Generate Allure Report
-        run: allure generate allure-results -o allure-report --clean
+        run: allure generate allure-results -o public/allure --clean
+
+      - name: Generate Playwright Trace Viewer
+        run: |
+          mkdir -p public/traces
+          export TRACE_DIR_NAME="run-$(date +'%Y-%m-%d')"
+          mkdir -p public/traces/$TRACE_DIR_NAME
+          TRACE_FILE=$(find artifacts/traces -name 'trace-*.zip' | head -n 1)
+          npx playwright show-trace $TRACE_FILE --save-as public/traces/$TRACE_DIR_NAME
 
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          publish_dir: ./public
+          publish_branch: gh-pages

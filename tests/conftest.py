@@ -75,12 +75,7 @@ def trace_browser_context(request, config, browser_context):
         trace_path = TRACES_DIR_PATH.joinpath(f"trace_{test_name}_{uuid.uuid4().hex}.zip")
         browser_context.tracing.stop(path=trace_path)
         utils.attach_trace(trace_path, test_name)
-        # with allure.step("Attach Playwright trace"):
-        #     allure.attach.file(
-        #         trace_path,
-        #         name=f"Trace",
-        #         attachment_type="application/zip"
-        #     )
+        utils.attach_link_to_viewer(test_name)
 
 
 @pytest.fixture(scope="function")
