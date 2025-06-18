@@ -62,14 +62,14 @@ jobs:
 
             # Generate the HTML page for the trace
             cat <<EOF > "$TRACE_HTML"
-<!DOCTYPE html>
-<html>
-  <head><meta charset="UTF-8"><title>${TRACE_NAME}</title></head>
-  <body style="margin:0">
-    <iframe src="${TRACE_IFRAME_PATH}" width="100%" height="100%" style="border:none"></iframe>
-  </body>
-</html>
-EOF
+          <!DOCTYPE html>
+          <html>
+            <head><meta charset="UTF-8"><title>${TRACE_NAME}</title></head>
+            <body style="margin:0">
+              <iframe src="${TRACE_IFRAME_PATH}" width="100%" height="100%" style="border:none"></iframe>
+            </body>
+          </html>
+          EOF
 
             # Add link to index
             echo "<li><a href=\"${TRACE_NAME}.html\">${TRACE_NAME}</a></li>" >> "$INDEX_HTML"
