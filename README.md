@@ -1,4 +1,5 @@
-[![Allure Report](https://img.shields.io/badge/Allure_Report-Live-green?logo=githubpages)](https://shukal94.github.io/pwtracing/)
+[![Allure Report](https://img.shields.io/badge/Allure--Report-open-green?logo=allure&style=for-the-badge)](https://shukal94.github.io/pwtracing/allure/)
+[![Traces Index](https://img.shields.io/badge/Playwright--Traces-latest-blue?logo=playwright&style=for-the-badge)](https://shukal94.github.io/pwtracing/traces/latest/)
 
 ## Requirements
 [Python 3.12+](https://www.python.org/downloads/)
