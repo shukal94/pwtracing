@@ -37,12 +37,10 @@ jobs:
       - name: Generate Playwright Trace Viewer
         run: |
           npm install --no-save playwright-core
-
           export TRACE_DIR_NAME="run-$(date +'%Y-%m-%d')"
-          mkdir -p public/traces/$TRACE_DIR_NAME
-          cp -r node_modules/playwright-core/lib/traceViewer public/traces/$TRACE_DIR_NAME/traceViewer
+          VIEWER_PATH=$(find node_modules -type d -name traceViewer | head -n 1)
+          cp -r "$VIEWER_PATH" public/traces/$TRACE_DIR_NAME/traceViewer
           cp artifacts/traces/*.zip public/traces/$TRACE_DIR_NAME/ || echo "No trace zip files found"
-
           # Generate HTML per trace
           shopt -s nullglob
           for TRACE_FILE in artifacts/traces/trace-*.zip; do
