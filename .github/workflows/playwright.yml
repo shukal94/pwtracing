@@ -53,9 +53,11 @@ jobs:
           echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Traces</title></head><body><h1>Playwright Traces</h1><ul>" > "$INDEX_HTML"
 
           # Loop over each .zip and generate an iframe page
+          ls -lh public/traces/latest
           for TRACE_FILE in public/traces/$TRACE_DIR_NAME/trace-*.zip; do
             [ -e "$TRACE_FILE" ] || continue
             BASENAME=$(basename "$TRACE_FILE")
+            echo "Обрабатываю $BASENAME"
             TRACE_NAME="${BASENAME%.zip}"
             TRACE_HTML="public/traces/$TRACE_DIR_NAME/${TRACE_NAME}.html"
             TRACE_IFRAME_PATH="traceViewer/index.html?trace=../${BASENAME}"
