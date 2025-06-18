@@ -1,5 +1,7 @@
 ## Requirements
 [Python 3.12+](https://www.python.org/downloads/)
+[Java 8+ (version 21 recommended)](https://www.oracle.com/java/technologies/downloads/#jdk21-mac)
+[Allure](https://allurereport.org/docs/install/)
 
 ## Install
 1. Go to project root - `cd /path/to/pwtracing`
@@ -12,3 +14,6 @@
 *Mac/Linux* `sh scripts/run_smoke.sh`
 
 *Windows* `.\scripts\run_smoke.bat`
+
+## See reports
+`allure serve`

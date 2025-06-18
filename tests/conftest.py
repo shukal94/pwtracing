@@ -2,6 +2,7 @@ import json
 import os
 import uuid
 import pathlib
+import allure
 import pytest
 import src.utils as utils
 from playwright.sync_api import sync_playwright
@@ -60,7 +61,7 @@ def browser_context(config, browser):
 
 
 @pytest.fixture(scope="function", autouse=True)
-def trace_browser_context(config, browser_context):
+def trace_browser_context(request, config, browser_context):
     ui_config = config["ui"]
     save_trace = ui_config.getboolean("save_trace")
 
@@ -70,7 +71,16 @@ def trace_browser_context(config, browser_context):
     yield
 
     if save_trace:
-        browser_context.tracing.stop(path=TRACES_DIR_PATH.joinpath(f"trace-{uuid.uuid4()}.zip"))
+        test_name = request.node.name
+        trace_path = TRACES_DIR_PATH.joinpath(f"trace_{test_name}_{uuid.uuid4().hex}.zip")
+        browser_context.tracing.stop(path=trace_path)
+        utils.attach_trace(trace_path, test_name)
+        # with allure.step("Attach Playwright trace"):
+        #     allure.attach.file(
+        #         trace_path,
+        #         name=f"Trace",
+        #         attachment_type="application/zip"
+        #     )
 
 
 @pytest.fixture(scope="function")
