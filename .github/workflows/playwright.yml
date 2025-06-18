@@ -36,6 +36,7 @@ jobs:
 
       - name: Generate Playwright Trace Viewer
         run: |
+          npm install -g @playwright/test
           export TRACE_DIR_NAME="run-$(date +'%Y-%m-%d')"
           mkdir -p public/traces/$TRACE_DIR_NAME
 
