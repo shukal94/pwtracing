@@ -36,33 +36,30 @@ jobs:
 
       - name: Generate Playwright Trace Viewer
         run: |
-          npm install @playwright/test --no-save
+          npm install --no-save playwright-core
+
           export TRACE_DIR_NAME="run-$(date +'%Y-%m-%d')"
           mkdir -p public/traces/$TRACE_DIR_NAME
+          cp -r node_modules/playwright-core/lib/traceViewer public/traces/$TRACE_DIR_NAME/traceViewer
+          cp artifacts/traces/*.zip public/traces/$TRACE_DIR_NAME/ || echo "No trace zip files found"
 
-          # Copy viewer UI
-          cp -r node_modules/@playwright/test/lib/traceViewer public/traces/$TRACE_DIR_NAME/traceViewer
-
-          # Copy all traces
-          cp artifacts/traces/*.zip public/traces/$TRACE_DIR_NAME/
-
-          # Generate index.html for each trace
+          # Generate HTML per trace
+          shopt -s nullglob
           for TRACE_FILE in artifacts/traces/trace-*.zip; do
             BASENAME=$(basename "$TRACE_FILE")
             TRACE_NAME="${BASENAME%.zip}"
-
             TRACE_HTML="public/traces/$TRACE_DIR_NAME/${TRACE_NAME}.html"
-
-            cat <<EOF > $TRACE_HTML
+            cat <<EOF > "$TRACE_HTML"
           <!DOCTYPE html>
           <html>
-          <head><meta charset="UTF-8"><title>${TRACE_NAME}</title></head>
-          <body style="margin:0">
-          <iframe src="traceViewer/index.html?trace=${BASENAME}" width="100%" height="100%" style="border:none"></iframe>
-          </body>
+            <head><meta charset="UTF-8"><title>${TRACE_NAME}</title></head>
+            <body style="margin:0">
+              <iframe src="traceViewer/index.html?trace=${BASENAME}" width="100%" height="100%" style="border:none"></iframe>
+            </body>
           </html>
           EOF
           done
+          shopt -u nullglob
 
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
