@@ -1,2 +1,2 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","570","test_get_started_link","tests","Thu Jun 19 14:17:39 UTC 2025","passed","Thu Jun 19 14:17:39 UTC 2025","","test_start_page","",""
+"","522","test_get_started_link","tests","Thu Jun 19 14:22:31 UTC 2025","passed","Thu Jun 19 14:22:31 UTC 2025","","test_start_page","",""
