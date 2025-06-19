@@ -59,7 +59,7 @@ jobs:
             echo "Processing $BASENAME"
             TRACE_NAME="${BASENAME%.zip}"
             TRACE_HTML="public/traces/$TRACE_DIR_NAME/${TRACE_NAME}.html"
-            TRACE_IFRAME_PATH="public/traces/latest/traceViewer/index.html?trace=${BASENAME}"
+            TRACE_IFRAME_PATH="traceViewer/index.html?trace=${BASENAME}"
 
             # Generate the HTML page for the trace
             cat <<EOF > "$TRACE_HTML"
@@ -84,3 +84,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+# https://shukal94.github.io/pwtracing/traces/latest/traceViewer/index.html?trace=https://shukal94.github.io/pwtracing/traces/latest/trace_test_get_started_link_5b8cf0c31f6148fdbb3d00d1b2be0a35.zip
