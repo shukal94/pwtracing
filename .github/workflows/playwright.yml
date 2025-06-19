@@ -66,9 +66,30 @@ jobs:
             cat <<EOF > "$TRACE_HTML"
           <!DOCTYPE html>
           <html>
-            <head><meta charset="UTF-8"><title>${TRACE_NAME}</title></head>
-            <body style="margin:0" width="100%" height="100%">
-              <iframe src="${TRACE_IFRAME_PATH}" width="100%" height="100%" style="border:none"></iframe>
+            <head>
+              <meta charset="UTF-8">
+              <title>${TRACE_NAME}</title>
+              <style>
+                html, body {
+                  height: 100%;
+                  margin: 0;
+                  padding: 0;
+                }
+                body {
+                  height: 100vh;
+                  width: 100vw;
+                  overflow: hidden;
+                }
+                iframe {
+                  width: 100vw;
+                  height: 100vh;
+                  border: none;
+                  display: block;
+                }
+              </style>
+            </head>
+            <body>
+              <iframe src="${TRACE_IFRAME_PATH}"></iframe>
             </body>
           </html>
           EOF
