@@ -58,7 +58,7 @@ jobs:
             BASENAME=$(basename "$TRACE_FILE")
             echo "Processing $BASENAME"
             TRACE_NAME="${BASENAME%.zip}"
-            TRACE_URL="https://shukal94.github.io/pwtracing/traces/latest/${TRACE_NAME}"
+            TRACE_URL="https://shukal94.github.io/pwtracing/traces/latest/${BASENAME}"
             TRACE_HTML="public/traces/$TRACE_DIR_NAME/${TRACE_NAME}.html"
             TRACE_IFRAME_PATH="traceViewer/index.html?trace=${TRACE_URL}"
 
