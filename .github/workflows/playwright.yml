@@ -55,7 +55,7 @@ jobs:
           # Loop over each .zip and generate an iframe page
           for TRACE_FILE in public/traces/$TRACE_DIR_NAME/trace_*.zip; do
             [ -e "$TRACE_FILE" ] || continue
-            BASENAME=$(basename "$TRACE_FILE")
+            BASENAME='https://shukal94.github.io/pwtracing/traces/latest/$(basename "$TRACE_FILE")'
             echo "Processing $BASENAME"
             TRACE_NAME="${BASENAME%.zip}"
             TRACE_HTML="public/traces/$TRACE_DIR_NAME/${TRACE_NAME}.html"
